@@ -5,7 +5,7 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 06:57:28
+ * @LastEditTime: 2019-07-24 07:19:37
  -->
 # 常用基础命令
 
@@ -34,6 +34,15 @@ docker rmi [imageName or containerID]
 ## 获取镜像
 ```vb
 docker image pull repertory/imageName
+```
+## 查看镜像的具体信息
+```vb
+docker inspect [containID]
+```
+## 连接到正在运行中的容器
+```vb
+docker attach [OPTIONS] [CONTAINERID]
+docker attach --sig-proxy=false myngin
 ```
 ## 运行镜象
 ```vb
