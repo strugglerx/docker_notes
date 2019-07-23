@@ -112,7 +112,7 @@ EXPOSE 3000
 #npm install --registry=https://registry.npm.taobao.org 
 #["npm","indtall"]
 - EXPOSE port
-#外部暴露端口
+#向外暴露的端口
 - CMD COMMAND
 #cmd会在每次容器启动后执行，一个Dockerfile可以包含多个run命令，但是最多只能有一个cmd命令，如果Dockerfile添加了CMD命令，就不能附加指令，例如启动执行的 /bin/bash 如果附加指令，cmd命令就失效了。
 
