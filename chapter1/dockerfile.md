@@ -5,7 +5,7 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 06:50:19
+ * @LastEditTime: 2019-07-24 06:55:40
  -->
 # 文件
 
@@ -23,7 +23,7 @@ npm-debug.log
 
 >docker配置
 
-```shell
+```
 FROM node:8.4
 COPY . /app
 WORKDIR /app
