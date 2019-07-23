@@ -5,7 +5,7 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 06:55:18
+ * @LastEditTime: 2019-07-24 06:57:28
  -->
 # 常用基础命令
 
@@ -91,6 +91,7 @@ docker image tag koa-demos:0.0.1 ruanyf/koa-demos:0.0.1
 docker image build -t [username]/[repository]:[tag] path
 4 发布image文件
 docker image push [username]/[repository]:[tag]
+
 ```
 
 
