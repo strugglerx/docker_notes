@@ -5,7 +5,7 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 07:19:37
+ * @LastEditTime: 2019-07-24 07:35:35
  -->
 # 常用基础命令
 
@@ -84,6 +84,8 @@ docker container cp [containerID]:[path/file] localPath
 ```vb
 docker image build -t imageName path
 docker image build -t imageName:tag path
+不使用缓存镜像
+docker build --no-cache 
 
 -t 表示指定image文件的名字 tag表示指定标签，一般为版本号，如果不指定就是latest
 ```

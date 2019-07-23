@@ -5,7 +5,7 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 06:55:40
+ * @LastEditTime: 2019-07-24 07:33:49
  -->
 # 文件
 
@@ -31,7 +31,7 @@ RUN npm install --registry=https://registry.npm.taobao.org
 EXPOSE 3000
 ```
 
-- FROM imageName:tag
+- FROM imageName:tag or imageName:digest
 #imageName为镜像 tag为版本
 - COPY OriginPath SourcePath
 #将原始目录下的文件拷贝到目标文件夹
@@ -41,6 +41,11 @@ EXPOSE 3000
 #制作镜像时初始执行的命令，例如：
 #npm install --registry=https://registry.npm.taobao.org 
 #["npm","indtall"]
+#当使用多条命令时可使用\
+```
+RUN /bin/bash -c 'source $HOME/.bashrc; \
+echo $HOME'
+```
 - EXPOSE port
 #向外暴露的端口
 - CMD COMMAND
