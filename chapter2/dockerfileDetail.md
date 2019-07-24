@@ -167,41 +167,43 @@ README.md  app.js  bin  config.js  controller  db  demo  document  lib  minify.j
 ```
 如上所示，我们已经可以容器的/home/itbilu/目录下访问到宿主机~/code/test目录下的数据了。
 
-3.11 USER
+## USER
 USER用于指定运行镜像所使用的用户：
-
+```
 USER daemon
+```
 使用USER指定用户时，可以使用用户名、UID或GID，或是两者的组合。以下都是合法的指定试：
-
+```
 USER user
 USER user:group
 USER uid
 USER uid:gid
 USER user:gid
 USER uid:group
+```
 使用USER指定用户后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT都将使用该用户。镜像构建完成后，通过docker run运行容器时，可以通过-u参数来覆盖所指定的用户。
 
-
-
-3.12 WORKDIR
+## WORKDIR
 WORKDIR用于在容器内设置一个工作目录：
-
+```
 WORKDIR /path/to/workdir
+```
 通过WORKDIR设置工作目录后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT、ADD、COPY等命令都会在该目录下执行。
 
 如，使用WORKDIR设置工作目录：
-
+```
 WORKDIR /a
 WORKDIR b
 WORKDIR c
 RUN pwd
+```
 在以上示例中，pwd最终将会在/a/b/c目录中执行。
 
 在使用docker run运行容器时，可以通过-w参数覆盖构建时所设置的工作目录。
 
 
 
-3.13 ARG
+## ARG
 ARG用于指定传递给构建运行时的变量：
 
 ARG <name>[=<default value>]
@@ -216,34 +218,38 @@ $ sudo docker build --build-arg site=itiblu.com -t itbilu/test .
 
 
 
-3.14 ONBUILD
+## ONBUILD
 ONBUILD用于设置镜像触发器：
-
+```
 ONBUILD [INSTRUCTION]
+```
 当所构建的镜像被用做其它镜像的基础镜像，该镜像中的触发器将会被钥触发。
 
 如，当镜像被使用时，可能需要做一些处理：
-
+```
 [...]
 ONBUILD ADD . /app/src
 ONBUILD RUN /usr/local/bin/python-build --dir /app/src
 [...]
+```
 
 
-3.15 STOPSIGNAL
+## STOPSIGNAL
 STOPSIGNAL用于设置停止容器所要发送的系统调用信号：
-
+```
 STOPSIGNAL signal
+```
 所使用的信号必须是内核系统调用表中的合法的值，如：9、SIGKILL。
 
 
 
-3.16 SHELL
+## SHELL
 SHELL用于设置执行命令（shell式）所使用的的默认shell类型：
-
+```
 SHELL ["executable", "parameters"]
+```
 SHELL在Windows环境下比较有用，Windows下通常会有cmd和powershell两种shell，可能还会有sh。这时就可以通过SHELL来指定所使用的shell类型：
-
+```
 FROM microsoft/windowsservercore
 
 # Executed as cmd /S /C echo default
@@ -259,7 +265,7 @@ RUN Write-Host hello
 # Executed as cmd /S /C echo hello
 SHELL ["cmd", "/S"", "/C"]
 RUN echo hello
-
+```
 
 
 
