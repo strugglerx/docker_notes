@@ -5,7 +5,7 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 07:35:35
+ * @LastEditTime: 2019-07-25 07:18:11
  -->
 # 常用基础命令
 
@@ -51,6 +51,10 @@ docker contianer run -it imageName bash #交互命令
 eg：
 docker container run --rm -p 8000:3000 -it imageName /bin/bash
 加入--rm参数，在容器终止后自动删除容器文件
+```
+## 对正在运行的容器进行交互操作
+```
+docker exec -it [containerID] /bin/bash
 ```
 ## 终止容器
 ```vb

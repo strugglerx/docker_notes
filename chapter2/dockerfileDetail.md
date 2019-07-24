@@ -5,30 +5,29 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 08:35:03
+ * @LastEditTime: 2019-07-25 00:33:59
  -->
 # dockerfile详细配置
 
 ## 所有配置项 
 
-```
-1 FROM
-2 RUN
-3 CMD
-4 ENTRYPOINT
-5 LABEL
-6 EXPOSE
-7 ENV
-8 ADD
-9 COPY
-10 VOLUME
-11 USER
-12 WORKDIR
-13 ARG
-14 ONBUILD
-15 STOPSIGNAL
-16 SHELL
-```
+- [1 FROM](#FROM)
+- [2 RUN](#RUN)
+- [3 CMD](#CMD)
+- [4 ENTRYPOINT](#ENTRYPOINT)
+- [5 LABEL](#LABEL)
+- [6 EXPOSE](#EXPOSE)
+- [7 ENV](#ENV)
+- [8 ADD](#ADD)
+- [9 COPY](#COPY)
+- [10 VOLUME](#VOLUME)
+- [11 USER](#USER)
+- [12 WORKDIR](#WORKDIR)
+- [13 ARG](#ARG)
+- [14 ONBUILD](#ONBUILD)
+- [15 STOPSIGNAL](#STOPSIGNAL)
+- [16 SHELL](#SHELL)
+
 ## `ENTRYPOINT`
 
 ENTRYPOINT用于给容器配置一个可执行程序。也就是说，每次使用镜像创建容器时，通过ENTRYPOINT指定的程序都会被设置为默认程序。ENTRYPOINT有以下两种形式
@@ -270,20 +269,3 @@ RUN Write-Host hello
 SHELL ["cmd", "/S"", "/C"]
 RUN echo hello
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
