@@ -86,8 +86,8 @@ LABEL version="1.0" description="这是一个Web服务器" by="IT笔录"
 docker inspect imageName
 "Labels": {
     "version": "1.0",
-    "description": "这是一个Web服务器",
-    "by": "IT笔录"
+    "description": "",
+    "by": ""
 },
 ```
 
