@@ -5,7 +5,7 @@
  * @Email: str@li.cm
  * @Github: https://github.com/strugglerx
  * @LastEditors: Moqi
- * @LastEditTime: 2019-07-24 07:56:32
+ * @LastEditTime: 2019-07-24 08:35:03
  -->
 # dockerfile详细配置
 
@@ -114,6 +114,156 @@ $ docker run -it imageName
 root@196ca123c0c3:/# cd $CUSTOM_PATH
 root@196ca123c0c3:/home/test# 
 ```
+
+## ADD
+ADD构建环境中的文件或者目录到镜像中
+```
+ADD <src>... <dest>
+ADD ["<src>",... "<dest>"]
+```
+通过ADD复制文件时，需要通过<src>指定源文件位置，并通过<dest>来指定目标位置。<src>可以是一个构建上下文中的文件或目录，也可以是一个URL，但不能访问构建上下文之外的文件或目录。
+
+如，通过ADD复制一个网络文件：
+```
+ADD http://wordpress.org/latest.zip $CUSTOM_PATH
+```
+另外，如果使用的是本地归档文件（gzip、bzip2、xz）时，Docker会自动进行解包操作，类似使用tar -x。
+
+## COPY
+COPY构建环境中的文件或者目录到镜像中
+```
+COPY <src>... <dest>
+COPY ["<src>",... "<dest>"]
+```
+COPY指令非常类似于ADD，不同点在于COPY只会复制构建目录下的文件，不能使用URL也不会进行解压操作。
+
+## VOLUME
+
+VOLUME用于创建挂载点，即向基于所构建镜像创始的容器添加卷：
+```
+VOLUME ["/data"]
+```
+一个卷可以存在于一个或多个容器的指定目录，该目录可以绕过联合文件系统，并具有以下功能：
+
+- 卷可以容器间共享和重用
+- 容器并不一定要和其它容器共享卷
+- 修改卷后会立即生效
+- 对卷的修改不会对镜像产生影响
+- 卷会一直存在，直到没有任何容器在使用它
+VOLUME让我们可以将源代码、数据或其它内容添加到镜像中，而又不并提交到镜像中，并使我们可以多个容器间共享这些内容。
+
+如，通过VOLUME创建一个挂载点：
+```
+ENV CUSTOM_PATH /home/custom/
+VOLUME [$CUSTOM_PATH]
+```
+构建的镜像，并指定镜像名为itbilu/test。构建镜像后，使用新构建的运行一个容器。运行容器时，需-v参将能本地目录绑定到容器的卷（挂载点）上，以使容器可以访问宿主机的数据。
+
+```shell
+$ sudo docker run -i -t -v ~/code/test:/home/custom/  imageName
+root@31b0fac536c4:/# cd /home/test/
+root@31b0fac536c4:/home/test# ls
+README.md  app.js  bin  config.js  controller  db  demo  document  lib  minify.js  node_modules  package.json  public  routes  test  views
+```
+如上所示，我们已经可以容器的/home/itbilu/目录下访问到宿主机~/code/test目录下的数据了。
+
+3.11 USER
+USER用于指定运行镜像所使用的用户：
+
+USER daemon
+使用USER指定用户时，可以使用用户名、UID或GID，或是两者的组合。以下都是合法的指定试：
+
+USER user
+USER user:group
+USER uid
+USER uid:gid
+USER user:gid
+USER uid:group
+使用USER指定用户后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT都将使用该用户。镜像构建完成后，通过docker run运行容器时，可以通过-u参数来覆盖所指定的用户。
+
+
+
+3.12 WORKDIR
+WORKDIR用于在容器内设置一个工作目录：
+
+WORKDIR /path/to/workdir
+通过WORKDIR设置工作目录后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT、ADD、COPY等命令都会在该目录下执行。
+
+如，使用WORKDIR设置工作目录：
+
+WORKDIR /a
+WORKDIR b
+WORKDIR c
+RUN pwd
+在以上示例中，pwd最终将会在/a/b/c目录中执行。
+
+在使用docker run运行容器时，可以通过-w参数覆盖构建时所设置的工作目录。
+
+
+
+3.13 ARG
+ARG用于指定传递给构建运行时的变量：
+
+ARG <name>[=<default value>]
+如，通过ARG指定两个变量：
+
+ARG site
+ARG build_user=IT笔录
+以上我们指定了site和build_user两个变量，其中build_user指定了默认值。在使用docker build构建镜像时，可以通过--build-arg <varname>=<value>参数来指定或重设置这些变量的值。
+
+$ sudo docker build --build-arg site=itiblu.com -t itbilu/test .
+这样我们构建了itbilu/test镜像，其中site会被设置为itbilu.com，由于没有指定build_user，其值将是默认值IT笔录。
+
+
+
+3.14 ONBUILD
+ONBUILD用于设置镜像触发器：
+
+ONBUILD [INSTRUCTION]
+当所构建的镜像被用做其它镜像的基础镜像，该镜像中的触发器将会被钥触发。
+
+如，当镜像被使用时，可能需要做一些处理：
+
+[...]
+ONBUILD ADD . /app/src
+ONBUILD RUN /usr/local/bin/python-build --dir /app/src
+[...]
+
+
+3.15 STOPSIGNAL
+STOPSIGNAL用于设置停止容器所要发送的系统调用信号：
+
+STOPSIGNAL signal
+所使用的信号必须是内核系统调用表中的合法的值，如：9、SIGKILL。
+
+
+
+3.16 SHELL
+SHELL用于设置执行命令（shell式）所使用的的默认shell类型：
+
+SHELL ["executable", "parameters"]
+SHELL在Windows环境下比较有用，Windows下通常会有cmd和powershell两种shell，可能还会有sh。这时就可以通过SHELL来指定所使用的shell类型：
+
+FROM microsoft/windowsservercore
+
+# Executed as cmd /S /C echo default
+RUN echo default
+
+# Executed as cmd /S /C powershell -command Write-Host default
+RUN powershell -command Write-Host default
+
+# Executed as powershell -command Write-Host hello
+SHELL ["powershell", "-command"]
+RUN Write-Host hello
+
+# Executed as cmd /S /C echo hello
+SHELL ["cmd", "/S"", "/C"]
+RUN echo hello
+
+
+
+
+
 
 
 
