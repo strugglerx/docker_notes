@@ -205,16 +205,20 @@ RUN pwd
 
 ## ARG
 ARG用于指定传递给构建运行时的变量：
-
+```
 ARG <name>[=<default value>]
+```
 如，通过ARG指定两个变量：
-
+```
 ARG site
-ARG build_user=IT笔录
+ARG build_user=user
+```
 以上我们指定了site和build_user两个变量，其中build_user指定了默认值。在使用docker build构建镜像时，可以通过--build-arg <varname>=<value>参数来指定或重设置这些变量的值。
 
-$ sudo docker build --build-arg site=itiblu.com -t itbilu/test .
-这样我们构建了itbilu/test镜像，其中site会被设置为itbilu.com，由于没有指定build_user，其值将是默认值IT笔录。
+```
+$ sudo docker build --build-arg site=custom.com -t custom/test .
+```
+这样我们构建了custom/test镜像，其中site会被设置为custom.com，由于没有指定build_user，其值将是默认值user。
 
 
 
