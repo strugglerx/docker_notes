@@ -23,3 +23,28 @@
 ```
 docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/][USERNAME/]NAME[:TAG]
 ```
+## 镜像导入和导出
+
+#### SAVE
+
+```
+docker save [OPTIONS] IMAGE [IMAGE...]
+docker save -o xxx.gz imageName1 imageName2  
+docker save --output xxx.gz imageName1 imageName2
+```
+
+- Save one or more images to a tar archive (streamed to STDOUT by default)
+- Usage : docker save [OPTIONS] IMAGE [IMAGE...]
+    - --output ,-o Write to a file ,instead of STDOUT
+
+#### Load
+
+读取docker镜像
+```
+docker load -i file
+docker load -input file
+```
+- Load an image from a tar archive or STDIN
+- Usage: docer load [OPTIONS]
+    - --input -i: Read from tar archive file ,instead of STDIN
+    - --quiet -q: Suppress the load output
