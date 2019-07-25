@@ -93,6 +93,12 @@ docker build --no-cache
 
 -t 表示指定image文件的名字 tag表示指定标签，一般为版本号，如果不指定就是latest
 ```
+
+## 基于Container创建镜像
+```vb
+docker commit
+```
+
 ## 发布image标注用户名和版本
 ```vb
 1.在对应的网站注册账号hub.docker.com or cloud.docker.com 
